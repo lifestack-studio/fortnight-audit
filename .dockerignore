@@ -1,0 +1,8 @@
+# internal / non-public files — keep them out of the served image
+README.md
+proofs/
+deploy/
+Dockerfile
+.dockerignore
+.DS_Store
+**/.DS_Store
