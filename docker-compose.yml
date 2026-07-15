@@ -1,0 +1,49 @@
+# The Fortnight Audit — production deployment
+# Host: Hostinger VPS · Reverse proxy: existing Traefik on the external
+# network `root_traefik-net` · Domain: tools.lifestack.studio
+#
+# Deploy with Hostinger Docker Manager under the project name `tools`
+# (paste this file via "Compose manually", or point "Compose from URL"
+# at https://github.com/lifestack-studio/fortnight-audit).
+#
+# The image builds straight from GitHub (`#main`), so every rebuild ships
+# whatever is currently on main: push to GitHub → redeploy → live.
+# No host ports are published; Traefik is the only way in.
+
+services:
+  tools:
+    build:
+      context: https://github.com/lifestack-studio/fortnight-audit.git#main
+    image: fortnight-audit:latest
+    container_name: fortnight-audit
+    restart: unless-stopped
+    networks:
+      - root_traefik-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=root_traefik-net
+      # --- HTTP router: redirect everything to HTTPS ---
+      - traefik.http.routers.tools-http.rule=Host(`tools.lifestack.studio`)
+      - traefik.http.routers.tools-http.entrypoints=web
+      - traefik.http.routers.tools-http.middlewares=tools-https-redirect
+      - traefik.http.routers.tools-http.service=tools
+      # --- HTTPS router: TLS via Let's Encrypt ---
+      - traefik.http.routers.tools-https.rule=Host(`tools.lifestack.studio`)
+      - traefik.http.routers.tools-https.entrypoints=websecure
+      - traefik.http.routers.tools-https.tls=true
+      - traefik.http.routers.tools-https.tls.certresolver=mytlschallenge
+      - traefik.http.routers.tools-https.service=tools
+      # --- Service: nginx listens on 80 inside the container ---
+      - traefik.http.services.tools.loadbalancer.server.port=80
+      # --- Middleware: the HTTP→HTTPS redirect ---
+      - traefik.http.middlewares.tools-https-redirect.redirectscheme.scheme=https
+
+networks:
+  root_traefik-net:
+    external: true

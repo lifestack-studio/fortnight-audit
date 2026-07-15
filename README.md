@@ -37,12 +37,16 @@ The **hosted pages** (prompt-pack, sample report) use the local woff2 files via 
 
 ## To publish (Docker)
 
+**Production (Hostinger VPS + Traefik, tools.lifestack.studio):** deploy `docker-compose.yml` with Hostinger Docker Manager under the project name `tools`. The compose builds the image straight from GitHub (`#main`) and attaches it to the external `root_traefik-net` network with the two-router Traefik pattern (HTTP→HTTPS redirect, Let's Encrypt via `mytlschallenge`); no host ports are published. **To ship an update:** push to `main`, then rebuild/redeploy the `tools` project in Docker Manager — or, from the VPS shell: `docker compose -p tools up -d --build`.
+
+**Local test:**
+
 ```bash
-docker build -t fortnight-audit .
-docker run --rm -p 8080:80 fortnight-audit   # → http://localhost:8080/
+docker build -t fortnight-audit . && docker run --rm -p 8080:80 fortnight-audit
+# → http://localhost:8080/  (lands on the prompt-pack page)
 ```
 
-Point the subdomain (e.g. `tools.lifestack.studio`) at the container; `/` lands on the prompt-pack page. Keep `fortnight-audit-master-prompt.md` in the web root next to the page — the **Download .md** link is relative. `.dockerignore` keeps README, proofs and deploy files out of the image.
+`/` lands on the prompt-pack page; keep `fortnight-audit-master-prompt.md` in the web root next to it — the **Download .md** link is relative. `.dockerignore` keeps README, proofs and compose files out of the image; `deploy/` is copied for the nginx config and then removed from the served web root by the Dockerfile.
 
 ## The five-level domain scale (for reference)
 

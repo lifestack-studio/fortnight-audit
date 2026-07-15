@@ -1,8 +1,12 @@
-# internal / non-public files — keep them out of the served image
+# internal / non-public files — keep them out of the build context
+# NOTE: deploy/ must stay IN the context (the Dockerfile copies deploy/nginx.conf);
+#       the Dockerfile removes it from the served web root after COPY.
 README.md
 proofs/
-deploy/
 Dockerfile
 .dockerignore
+docker-compose.yml
+_export/
+.git/
 .DS_Store
 **/.DS_Store
