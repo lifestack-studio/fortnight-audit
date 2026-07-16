@@ -211,11 +211,12 @@
   /* ---------- WHOLE-LIFE READING ---------- */
   .wheel-wrap{display:grid; grid-template-columns:minmax(0,1.15fr) 1fr; gap:28px; align-items:center; margin-top:8px;}
   .wheel svg{display:block; width:100%; height:auto;}
-  .scale-list{list-style:none; margin:0; padding:0;}
-  .scale-list li{display:flex; align-items:baseline; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line); font-size:13px; color:var(--ink-soft);}
-  .scale-list li:last-child{border-bottom:none;}
-  .scale-list i{width:11px; height:11px; border-radius:3px; flex:0 0 11px; position:relative; top:1px;}
-  .scale-list b{color:var(--ink); font-weight:600; min-width:86px; display:inline-block;}
+  table.scale-table{width:100%; border-collapse:collapse; font-size:13px; color:var(--ink-soft);}
+  table.scale-table td{padding:7px 0; border-bottom:1px dashed var(--line); vertical-align:baseline;}
+  table.scale-table tr:last-child td{border-bottom:none;}
+  table.scale-table td.sw{width:17px; padding-right:6px;}
+  table.scale-table td.lvl{white-space:nowrap; width:1%; padding-right:12px; color:var(--ink); font-weight:600;}
+  table.scale-table i{display:inline-block; width:11px; height:11px; border-radius:3px; position:relative; top:1px;}
   .sw-unseen{background:#7F9297;} .sw-strained{background:#9F1F7C;} .sw-holding{background:#1098F7;} .sw-steady{background:#3D8B96;} .sw-integrated{background:#4C956C;}
   .wheel-note{font-size:12px; color:var(--mist); margin-top:10px;}
   .domains{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:22px;}
@@ -264,7 +265,7 @@
   <!-- ===== MASTHEAD ===== -->
   <header class="masthead">
     <div class="mast-top">
-      <span class="ls-logo on-dark"><svg viewBox="150 462 772 154" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="lifestack"><g fill="currentColor"><rect x="166.9" y="470.8" width="23.5" height="137"/><rect x="211.9" y="510" width="23.5" height="97.8"/><path d="M305.8,491.8c-15.9,0-23.5,5.4-25.3,18.8h22v21.4h-22.1v75.8h-23.3v-75.8h-9.7v-21.4h9.9c2.1-26.2,18.8-40.2,48.6-40.2v21.4Z"/><path d="M387.8,545.2c-4.1-9.6-12.9-15.1-24.7-15.1s-20.3,5.5-24.5,15.1h49.1ZM385.3,577.5h25.6c-6.5,19.8-23.9,32.1-47.5,32.1s-50.7-20.3-50.7-50.7,20.3-50.3,50.7-50.3,50.5,20.2,50.5,50.3-.2,5.3-.4,7.8h-76.5c2.5,13.5,12.3,21.3,26.2,21.3s17.4-3.7,22.1-10.6"/><path d="M614.9,530.1c-16.4,0-27.2,10.8-27.2,29s10.8,29,27.2,29,27-10.8,27-29-10.8-29-27-29M665.4,559.3v48.5h-23.5v-9.4c-4.7,6.1-14.7,11.2-29,11.2-28.4,0-48.7-20.3-48.7-50.7s20.3-50.3,50.5-50.3,50.7,20.3,50.7,50.7"/><path d="M725.6,588c11.9,0,20.7-5.7,24.8-15.7h24.5c-5.3,22.7-23.5,37.2-49.1,37.2s-50.7-20.3-50.7-50.7,20.3-50.3,50.7-50.3,43.8,14.3,48.9,36.6h-24.5c-4.1-9.6-12.9-15.1-24.7-15.1s-27,10.8-27,29,10.8,29,27,29"/><path d="M447.4,536.8c0-3.9,4.1-6.5,11.7-6.5s18.2,2.9,28.6,11.5l5-7.3-1.6-2.2-15.3-21.4-1.5-2h-16.4,0c-21.2.5-34.1,10.8-34.1,28.4,0,35.8,53.2,25.4,53.2,42.3s-6.1,8.4-14.1,8.4-20-3.9-28.2-11.7l-12.5,18.4c6.1,5.5,19.4,14.9,40.1,14.9s38.2-10.8,38.2-30.7c0-36.6-53.2-27.6-53.2-41.9Z"/><polygon points="535.9 470.8 535.9 607.8 512.4 607.8 512.4 532.3 498 532.3 496.1 529.7 485 514.2 481.3 508.9 512.4 508.9 512.4 470.8 535.9 470.8"/><path d="M784.5,471h23.5v98.5l43.3-59.2h28.1l-35.3,48,35.5,49h-27.9l-21.6-30-22.2,30h-23.5v-136.3Z"/></g><g fill="#ff4500"><rect x="211.9" y="470.8" width="23.5" height="23.5"/><rect x="540.9" y="509.7" width="23.5" height="23.5"/><rect x="889.6" y="584.3" width="23.5" height="23.5"/></g></svg></span>
+      <a class="ls-logo on-dark" href="https://lifestackconsulting.co.uk" target="_blank" rel="noopener" aria-label="lifestack Consulting"><svg viewBox="150 462 772 154" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="lifestack"><g fill="currentColor"><rect x="166.9" y="470.8" width="23.5" height="137"/><rect x="211.9" y="510" width="23.5" height="97.8"/><path d="M305.8,491.8c-15.9,0-23.5,5.4-25.3,18.8h22v21.4h-22.1v75.8h-23.3v-75.8h-9.7v-21.4h9.9c2.1-26.2,18.8-40.2,48.6-40.2v21.4Z"/><path d="M387.8,545.2c-4.1-9.6-12.9-15.1-24.7-15.1s-20.3,5.5-24.5,15.1h49.1ZM385.3,577.5h25.6c-6.5,19.8-23.9,32.1-47.5,32.1s-50.7-20.3-50.7-50.7,20.3-50.3,50.7-50.3,50.5,20.2,50.5,50.3-.2,5.3-.4,7.8h-76.5c2.5,13.5,12.3,21.3,26.2,21.3s17.4-3.7,22.1-10.6"/><path d="M614.9,530.1c-16.4,0-27.2,10.8-27.2,29s10.8,29,27.2,29,27-10.8,27-29-10.8-29-27-29M665.4,559.3v48.5h-23.5v-9.4c-4.7,6.1-14.7,11.2-29,11.2-28.4,0-48.7-20.3-48.7-50.7s20.3-50.3,50.5-50.3,50.7,20.3,50.7,50.7"/><path d="M725.6,588c11.9,0,20.7-5.7,24.8-15.7h24.5c-5.3,22.7-23.5,37.2-49.1,37.2s-50.7-20.3-50.7-50.7,20.3-50.3,50.7-50.3,43.8,14.3,48.9,36.6h-24.5c-4.1-9.6-12.9-15.1-24.7-15.1s-27,10.8-27,29,10.8,29,27,29"/><path d="M447.4,536.8c0-3.9,4.1-6.5,11.7-6.5s18.2,2.9,28.6,11.5l5-7.3-1.6-2.2-15.3-21.4-1.5-2h-16.4,0c-21.2.5-34.1,10.8-34.1,28.4,0,35.8,53.2,25.4,53.2,42.3s-6.1,8.4-14.1,8.4-20-3.9-28.2-11.7l-12.5,18.4c6.1,5.5,19.4,14.9,40.1,14.9s38.2-10.8,38.2-30.7c0-36.6-53.2-27.6-53.2-41.9Z"/><polygon points="535.9 470.8 535.9 607.8 512.4 607.8 512.4 532.3 498 532.3 496.1 529.7 485 514.2 481.3 508.9 512.4 508.9 512.4 470.8 535.9 470.8"/><path d="M784.5,471h23.5v98.5l43.3-59.2h28.1l-35.3,48,35.5,49h-27.9l-21.6-30-22.2,30h-23.5v-136.3Z"/></g><g fill="#ff4500"><rect x="211.9" y="470.8" width="23.5" height="23.5"/><rect x="540.9" y="509.7" width="23.5" height="23.5"/><rect x="889.6" y="584.3" width="23.5" height="23.5"/></g></svg></a>
       <span class="mast-badge">Fortnight Audit</span>
     </div>
     <h1 class="report-title">Where your fortnight actually went</h1>
@@ -419,13 +420,13 @@
       </svg>
       </div>
       <div>
-        <ul class="scale-list">
-          <li><i class="sw-unseen"></i><span><b>Unseen</b> no real picture &mdash; running on assumption</span></li>
-          <li><i class="sw-strained"></i><span><b>Strained</b> visible signs of depletion or erosion</span></li>
-          <li><i class="sw-holding"></i><span><b>Holding</b> ticking over, but effortful or fragile</span></li>
-          <li><i class="sw-steady"></i><span><b>Steady</b> genuinely well &mdash; recovers on its own</span></li>
-          <li><i class="sw-integrated"></i><span><b>Integrated</b> holds itself, and gives more than it takes</span></li>
-        </ul>
+        <table class="scale-table">
+          <tr><td class="sw"><i class="sw-unseen"></i></td><td class="lvl">Unseen</td><td>no real picture &mdash; running on assumption</td></tr>
+          <tr><td class="sw"><i class="sw-strained"></i></td><td class="lvl">Strained</td><td>visible signs of depletion or erosion</td></tr>
+          <tr><td class="sw"><i class="sw-holding"></i></td><td class="lvl">Holding</td><td>ticking over, but effortful or fragile</td></tr>
+          <tr><td class="sw"><i class="sw-steady"></i></td><td class="lvl">Steady</td><td>genuinely well &mdash; recovers on its own</td></tr>
+          <tr><td class="sw"><i class="sw-integrated"></i></td><td class="lvl">Integrated</td><td>holds itself, and gives more than it takes</td></tr>
+        </table>
         <p class="wheel-note">The further from the centre, the better held that part of your life. Each level answers to one lap of the method: unseen calls for Awareness, strained for Understanding, holding for Intervention, steady for Integration.</p>
       </div>
     </div>
@@ -513,7 +514,7 @@
     <p class="eyebrow" style="color:rgba(255,255,255,.7)">Your next lap</p>
     <h2>Want to know <em>why</em> &mdash; and where to start?</h2>
     <p>This audit is Lap 1 of the lifestack method: you&rsquo;ve seen where a fortnight actually goes &mdash; and what it touches. The first conversation costs nothing and commits you to nothing. It&rsquo;s simply a chance to look at your readings together and decide where your first lap should begin.</p>
-    <a class="btn" href="https://lifestack.studio" target="_blank" rel="noopener">Book your first conversation &rarr;</a>
+    <a class="btn" href="https://lifestackconsulting.co.uk/contact-us/" target="_blank" rel="noopener">Book your first conversation &rarr;</a>
     <div class="follow">More free tools at <a href="https://lifestack.studio" target="_blank" rel="noopener">lifestack.studio</a></div>
   </section>
 
