@@ -398,7 +398,7 @@ When the user confirms, output the following HTML **in full**, as a **single sel
 9. Keep all `aria-label`s. Use the current year in the footer if it isn't 2026.
 
 After the HTML, tell the user:
-> **To save as a PDF:** click the orange **Download PDF** button (or press **Cmd/Ctrl + P** → *Save as PDF*, A4). In Claude/ChatGPT the report opens as a live artifact/canvas; if your tool can't render HTML, copy the code into a file called `fortnight-audit.html` and open it in any browser.
+> **To save as a PDF:** click the orange **Save as PDF** button — your browser's print dialogue opens; keep A4 and choose *Save as PDF* as the destination (or press **Cmd/Ctrl + P**). In Claude/ChatGPT the report opens as a live artifact/canvas; if your tool can't render HTML, copy the code into a file called `fortnight-audit.html` and open it in any browser.
 
 ```html
 <!DOCTYPE html>
@@ -535,7 +535,9 @@ After the HTML, tell the user:
   .disclaimer strong{color:var(--ink-soft);}
 
   /* ---------- DOWNLOAD BAR ---------- */
-  .toolbar{position:fixed; right:22px; bottom:22px; z-index:50; display:flex; gap:10px;}
+  .toolbar{position:fixed; right:22px; bottom:22px; z-index:50; display:flex; flex-direction:column; align-items:flex-end; gap:8px;}
+  .toolbar .hint{background:#fff; border:1px solid var(--line); color:var(--ink-soft); font-size:11.5px; line-height:1.45; padding:7px 11px; border-radius:10px; box-shadow:var(--shadow); max-width:250px; text-align:right;}
+  .toolbar .btns{display:flex; gap:10px;}
   .toolbar button{font-family:var(--font); cursor:pointer; border:none; font-weight:600; font-size:14px;
     padding:12px 20px; border-radius:12px; box-shadow:var(--shadow); background:var(--orange); color:#fff;}
   .toolbar button.ghost{background:#fff; color:var(--teal); border:1px solid var(--line);}
@@ -602,8 +604,11 @@ After the HTML, tell the user:
 <body>
 
 <div class="toolbar">
-  <button class="ghost" onclick="window.print()">Print</button>
-  <button onclick="window.print()">&darr; Download PDF</button>
+  <span class="hint">Opens your browser&rsquo;s print dialogue &mdash; choose <strong>Save as PDF</strong> as the destination (A4).</span>
+  <div class="btns">
+    <button class="ghost" onclick="window.print()">Print</button>
+    <button onclick="window.print()">Save as PDF</button>
+  </div>
 </div>
 
 <div class="page">
