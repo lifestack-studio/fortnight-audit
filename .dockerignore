@@ -2,11 +2,14 @@
 # NOTE: deploy/ must stay IN the context (the Dockerfile copies deploy/nginx.conf);
 #       the Dockerfile removes it from the served web root after COPY.
 README.md
+README-internal.md
 proofs/
 Dockerfile
 .dockerignore
 docker-compose.yml
 _export/
+_src/
+assets/report-template.html
 .git/
 .DS_Store
 **/.DS_Store
