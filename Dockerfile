@@ -13,6 +13,11 @@ FROM nginx:alpine
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY . /usr/share/nginx/html/
 
-# deploy/ is needed in the build context for the nginx.conf COPY above,
-# but must not be publicly served — remove it from the web root.
-RUN rm -rf /usr/share/nginx/html/deploy
+# Strip everything non-servable from the web root. This RUN is the
+# authoritative mechanism: BuildKit does NOT apply .dockerignore to remote
+# git build contexts (verified on the Hostinger VPS 2026-07-16), so every
+# file tracked in the repo lands in the COPY above. The private names are
+# included defensively — rm -rf on an absent path is a no-op.
+RUN cd /usr/share/nginx/html && rm -rf \
+    deploy README.md README-internal.md docker-compose.yml Dockerfile \
+    .dockerignore .gitignore _src _export proofs assets/report-template.html
